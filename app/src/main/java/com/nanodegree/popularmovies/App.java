@@ -21,7 +21,7 @@ public class App extends Application {
         if (service == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("http://api.themoviedb.org/3/")
+                    .baseUrl("http://api.themoviedb.org/")
                     .build();
 
             service = retrofit.create(RestApi.class);

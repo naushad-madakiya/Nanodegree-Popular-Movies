@@ -1,8 +1,6 @@
 package com.nanodegree.popularmovies.model;
 
-import android.graphics.Movie;
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,30 +8,17 @@ import java.util.List;
 /**
  * Created by Naushad on 21/12/15.
  */
-public class DiscoverMovieResponse implements Parcelable {
+public class DiscoverMovieResponse {
 
     private Integer page;
 
     private List<Movie> results = new ArrayList<Movie>();
 
+    @SerializedName("total_results")
     private Integer totalResults;
 
+    @SerializedName("total_pages")
     private Integer totalPages;
-
-    protected DiscoverMovieResponse(Parcel in) {
-    }
-
-    public static final Creator<DiscoverMovieResponse> CREATOR = new Creator<DiscoverMovieResponse>() {
-        @Override
-        public DiscoverMovieResponse createFromParcel(Parcel in) {
-            return new DiscoverMovieResponse(in);
-        }
-
-        @Override
-        public DiscoverMovieResponse[] newArray(int size) {
-            return new DiscoverMovieResponse[size];
-        }
-    };
 
     /**
      * @return The page
@@ -89,14 +74,5 @@ public class DiscoverMovieResponse implements Parcelable {
      */
     public void setTotalPages(Integer totalPages) {
         this.totalPages = totalPages;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
     }
 }

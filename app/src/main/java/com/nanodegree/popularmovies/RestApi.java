@@ -13,8 +13,7 @@ import retrofit.http.Query;
  */
 public interface RestApi {
 
-    @GET("discover/movie")
-    Call<DiscoverMovieResponse> getFeed(@Query("sort_by") String sortBy,
-                          @Query("api_key") String apiKey
-    );
+    @GET("/3/movie/popular")
+    Call<DiscoverMovieResponse> getPopularMovies(
+            @Query("api_key") String apiKey);
 }
