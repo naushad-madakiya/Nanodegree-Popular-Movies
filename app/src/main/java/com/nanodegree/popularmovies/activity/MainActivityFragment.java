@@ -20,9 +20,9 @@ import com.nanodegree.popularmovies.model.DiscoverMovieResponse;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -78,15 +78,12 @@ public class MainActivityFragment extends Fragment implements Toolbar.OnMenuItem
                 .getPopularMovies(BuildConfig.MOVIE_DP_API)
                 .enqueue(new Callback<DiscoverMovieResponse>() {
                     @Override
-                    public void onResponse(Response<DiscoverMovieResponse> response, Retrofit retrofit) {
-                        if (response.isSuccess()) {
-                            //TODO update / show list
-                        } else {
-                            //TODO show error
-                        }
+                    public void onResponse(Call<DiscoverMovieResponse> call, Response<DiscoverMovieResponse> response) {
+
                     }
+
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(Call<DiscoverMovieResponse> call, Throwable t) {
 
                     }
                 });
