@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.nanodegree.popularmovies.App;
 import com.nanodegree.popularmovies.BuildConfig;
@@ -37,6 +36,8 @@ public class MainActivityFragment extends Fragment implements Toolbar.OnMenuItem
 
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    SortingType MOVIE_SORTING_TYPE = SortingType.POPULAR;
 
     public MainActivityFragment() {
     }
@@ -74,8 +75,12 @@ public class MainActivityFragment extends Fragment implements Toolbar.OnMenuItem
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        loadList();
+    }
+
+    private void loadList() {
         App.getApi()
-                .getPopularMovies(BuildConfig.MOVIE_DP_API)
+                .getPopularMovies(MOVIE_SORTING_TYPE.toString(), BuildConfig.MOVIE_DP_API)
                 .enqueue(new Callback<DiscoverMovieResponse>() {
                     @Override
                     public void onResponse(Call<DiscoverMovieResponse> call, Response<DiscoverMovieResponse> response) {
@@ -91,6 +96,16 @@ public class MainActivityFragment extends Fragment implements Toolbar.OnMenuItem
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_popularity:
+                MOVIE_SORTING_TYPE = SortingType.POPULAR;
+                loadList();
+                return true;
+            case R.id.action_sort_rating:
+                MOVIE_SORTING_TYPE = SortingType.TOP_RATED;
+                loadList();
+                return true;
+        }
 
         return false;
     }
@@ -98,5 +113,28 @@ public class MainActivityFragment extends Fragment implements Toolbar.OnMenuItem
     @Override
     public void onRefresh() {
 
+    }
+
+
+    public enum SortingType {
+        POPULAR("popular"),
+        TOP_RATED("top_rated");
+
+        private final String text;
+
+        /**
+         * @param text
+         */
+        SortingType(final String text) {
+            this.text = text;
+        }
+
+        /* (non-Javadoc)
+         * @see java.lang.Enum#toString()
+         */
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.nanodegree.popularmovies.model.DiscoverMovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -11,7 +12,6 @@ import retrofit2.http.Query;
  */
 public interface RestApi {
 
-    @GET("/3/movie/popular")
-    Call<DiscoverMovieResponse> getPopularMovies(
-            @Query("api_key") String apiKey);
+    @GET("/3/movie/{type}")
+    Call<DiscoverMovieResponse> getPopularMovies(@Path("type") String sortingType, @Query("api_key") String apiKey);
 }
