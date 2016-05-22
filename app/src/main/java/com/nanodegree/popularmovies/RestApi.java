@@ -13,5 +13,7 @@ import retrofit2.http.Query;
 public interface RestApi {
 
     @GET("/3/movie/{type}")
-    Call<DiscoverMovieResponse> getPopularMovies(@Path("type") String sortingType, @Query("api_key") String apiKey);
+    Call<DiscoverMovieResponse> getPopularMovies(@Path("type") String sortingType,
+                                                 @Query("page") int page,
+                                                 @Query("api_key") String apiKey);
 }
